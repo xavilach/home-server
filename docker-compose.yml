@@ -14,35 +14,35 @@ services:
       - ${USERDIR}/docker/shared:/shared
     environment:
       - TZ=${TZ}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.portainer.rule=Host(`portainer.${DOMAINNAME}`)"
-      - "traefik.http.routers.portainer.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.portainer.rule=Host(`portainer.${DOMAINNAME}`)"
+#      - "traefik.http.routers.portainer.entrypoints=web"
 
-  traefik:
-    image: traefik:v2.0
-    container_name: traefik
-    restart: unless-stopped
-    command:
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "9901:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+#  traefik:
+#    image: traefik:v2.0
+#    container_name: traefik
+#    restart: unless-stopped
+#    command:
+#      - "--log.level=DEBUG"
+#      - "--api.insecure=true"
+#      - "--providers.docker=true"
+#      - "--providers.docker.exposedbydefault=false"
+#      - "--entrypoints.web.address=:80"
+#    ports:
+#      - "80:80"
+#      - "9901:8080"
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
 
-  whoami:
-    image: containous/whoami
-    container_name: whoami
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`${DOMAINNAME}`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+#  whoami:
+#    image: containous/whoami
+#    container_name: whoami
+#    restart: unless-stopped
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.whoami.rule=Host(`${DOMAINNAME}`)"
+#      - "traefik.http.routers.whoami.entrypoints=web"
 
   organizr:
     image: organizrtools/organizr-v2:armhf
@@ -57,10 +57,10 @@ services:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.organizr.rule=Host(`organizr.${DOMAINNAME}`)"
-      - "traefik.http.routers.organizr.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.organizr.rule=Host(`organizr.${DOMAINNAME}`)"
+#      - "traefik.http.routers.organizr.entrypoints=web"
 
   watchtower:
     container_name: watchtower
@@ -89,10 +89,10 @@ services:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.${DOMAINNAME}`)"
-      - "traefik.http.routers.homeassistant.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.homeassistant.rule=Host(`homeassistant.${DOMAINNAME}`)"
+#      - "traefik.http.routers.homeassistant.entrypoints=web"
 
   mariadb:
     image: "linuxserver/mariadb"
@@ -120,10 +120,10 @@ services:
     environment:
       - PMA_HOST=mariadb
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAINNAME}`)"
-      - "traefik.http.routers.phpmyadmin.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.${DOMAINNAME}`)"
+#      - "traefik.http.routers.phpmyadmin.entrypoints=web"
 
   nextcloud:
     container_name: nextcloud
@@ -140,10 +140,10 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.${DOMAINNAME}`)"
-      - "traefik.http.routers.nextcloud.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.${DOMAINNAME}`)"
+#      - "traefik.http.routers.nextcloud.entrypoints=web"
 
   ghost:
     image: ghost
@@ -158,10 +158,10 @@ services:
       database__connection__user: ghost
       database__connection__password: ghost
       database__connection__database: ghost
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ghost.rule=Host(`ghost.${DOMAINNAME}`)"
-      - "traefik.http.routers.ghost.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.ghost.rule=Host(`ghost.${DOMAINNAME}`)"
+#      - "traefik.http.routers.ghost.entrypoints=web"
 
   gitlab:
     image: 'ulm0/gitlab'
@@ -177,10 +177,10 @@ services:
       - ${USERDIR}/docker/gitlab/config:/etc/gitlab
       - ${USERDIR}/docker/gitlab/logs:/var/log/gitlab
       - ${USERDIR}/docker/gitlab/data:/var/opt/gitlab
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.gitlab.rule=Host(`gitlab.${DOMAINNAME}`)"
-      - "traefik.http.routers.gitlab.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.gitlab.rule=Host(`gitlab.${DOMAINNAME}`)"
+#      - "traefik.http.routers.gitlab.entrypoints=web"
 
   jenkins:
     image: jenkins4eval/jenkins
@@ -190,10 +190,10 @@ services:
       - "9908:8080"
     volumes:
       - ${USERDIR}/docker/jenkins:/var/jenkins_home
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jenkins.rule=Host(`jenkins.${DOMAINNAME}`)"
-      - "traefik.http.routers.jenkins.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.jenkins.rule=Host(`jenkins.${DOMAINNAME}`)"
+#      - "traefik.http.routers.jenkins.entrypoints=web"
 
   monitor:
     image: michaelmiklis/rpi-monitor
@@ -212,10 +212,10 @@ services:
       - /proc:/dockerhost/proc:ro
       - /usr/lib:/dockerhost/usr/lib:ro
       - ${USERDIR}/docker/monitor:/var/lib/rpimonitor
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.monitor.rule=Host(`monitor.${DOMAINNAME}`)"
-      - "traefik.http.routers.monitor.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.monitor.rule=Host(`monitor.${DOMAINNAME}`)"
+#      - "traefik.http.routers.monitor.entrypoints=web"
 
   heimdall:
     image: linuxserver/heimdall
@@ -229,7 +229,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.heimdall.rule=Host(`heimdall.${DOMAINNAME}`)"
-      - "traefik.http.routers.heimdall.entrypoints=web"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.heimdall.rule=Host(`heimdall.${DOMAINNAME}`)"
+#      - "traefik.http.routers.heimdall.entrypoints=web"
