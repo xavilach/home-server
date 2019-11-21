@@ -44,6 +44,43 @@ services:
 #      - "traefik.http.routers.whoami.rule=Host(`${DOMAINNAME}`)"
 #      - "traefik.http.routers.whoami.entrypoints=web"
 
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: unless-stopped
+#    ports:
+#      - "53:53/tcp"
+#      - "53:53/udp"
+#      - "67:67/udp"
+#      - "80:80/tcp"
+#      - "443:443/tcp"
+    network_mode: host
+    volumes:
+      - ${USERDIR}/docker/pihole/etc-pihole/:/etc/pihole/
+      - ${USERDIR}/docker/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+      - ${USERDIR}/docker/pihole/var-log/pihole.log:/var/log/pihole.log
+    environment:
+      - TZ=${TZ}
+      - ServerIP=${SERVER_IP}
+      - WEBPASSWORD=${PIHOLE_WEB_PASSWORD}
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+
+  openvpn:
+    image: giggio/openvpn-arm:latest
+    container_name: openvpn
+    restart: unless-stopped
+    ports:
+      - "1194:1194/udp"
+    volumes:
+      - ${USERDIR}/docker/openvpn/etc-openvpn/:/etc/openvpn/
+      - ${USERDIR}/docker/openvpn/var-log/:/var/log/
+    cap_add:
+      - NET_ADMIN
+
   organizr:
     image: organizrtools/organizr-v2:armhf
     container_name: organizr
